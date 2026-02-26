@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="VISION AI – AI-Based Smart Sunglasses. Empowering Vision Through Intelligence. Pre-book now with 50% off.">
+<title>VISION AI – Empowering Vision Through Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-blue: #00d4ff;
+    --neon-purple: #bf00ff;
+    --neon-pink: #ff00c8;
+    --deep-purple: #0d0520;
+    --mid-purple: #160a35;
+    --card-bg: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+    --glow-blue: 0 0 30px rgba(0,212,255,0.4);
+    --glow-purple: 0 0 30px rgba(191,0,255,0.4);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--deep-purple);
+    color: #e8e0f5;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── CANVAS BACKGROUND ── */
+  #bg-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+    opacity: 0.35;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 18px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(13,5,32,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900; font-size: 1.4rem;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: 3px;
+  }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--neon-blue); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+    border: none; color: #fff; padding: 10px 22px;
+    font-family: 'Outfit', sans-serif; font-weight: 600;
+    font-size: 0.8rem; letter-spacing: 1px;
+    border-radius: 50px; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s;
+  }
+  .nav-cta:hover { transform: scale(1.05); box-shadow: var(--glow-purple); }
+
+  /* ── SECTIONS BASE ── */
+  section { position: relative; z-index: 1; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 120px 5% 80px;
+    overflow: hidden;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.3);
+    color: var(--neon-blue);
+    font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+    padding: 6px 18px; border-radius: 50px;
+    margin-bottom: 28px;
+    animation: fadeDown 0.8s ease both;
+  }
+  .hero-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.4rem, 6vw, 5.5rem);
+    font-weight: 900; line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--neon-blue) 45%, var(--neon-purple) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 22px;
+    animation: fadeDown 0.9s 0.1s ease both;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(255,255,255,0.6);
+    max-width: 600px;
+    margin: 0 auto 16px;
+    animation: fadeDown 1s 0.2s ease both;
+  }
+  .hero-tagline {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem; letter-spacing: 4px;
+    color: var(--neon-purple); text-transform: uppercase;
+    margin-bottom: 50px;
+    animation: fadeDown 1s 0.3s ease both;
+  }
+
+  /* 3D Glasses Visual */
+  .glasses-wrapper {
+    position: relative; width: 380px; height: 220px;
+    margin: 0 auto 50px;
+    animation: float 4s ease-in-out infinite, fadeUp 1s 0.5s ease both;
+  }
+  .glasses-svg {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 0 40px rgba(0,212,255,0.5)) drop-shadow(0 0 80px rgba(191,0,255,0.3));
+  }
+  .neon-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 420px; height: 260px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(var(--deep-purple),var(--deep-purple)) padding-box,
+                linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink)) border-box;
+    animation: rotateBorder 4s linear infinite;
+    pointer-events: none;
+  }
+  .neon-ring-2 {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 460px; height: 290px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,212,255,0.2);
+    animation: rotateBorder 7s linear infinite reverse;
+    pointer-events: none;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 1s 0.7s ease both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-blue) 100%);
+    color: #fff; border: none; padding: 16px 36px;
+    font-family: 'Outfit', sans-serif; font-weight: 700;
+    font-size: 0.95rem; letter-spacing: 1.5px;
+    border-radius: 50px; cursor: pointer;
+    box-shadow: 0 0 30px rgba(191,0,255,0.4);
+    transition: transform 0.2s, box-shadow 0.3s;
+    text-transform: uppercase;
+  }
+  .btn-primary:hover { transform: scale(1.06); box-shadow: 0 0 50px rgba(191,0,255,0.7); }
+  .btn-outline {
+    background: transparent;
+    color: #fff; border: 1px solid rgba(0,212,255,0.5);
+    padding: 15px 36px;
+    font-family: 'Outfit', sans-serif; font-weight: 600;
+    font-size: 0.95rem; letter-spacing: 1.5px;
+    border-radius: 50px; cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    text-transform: uppercase;
+  }
+  .btn-outline:hover { border-color: var(--neon-blue); box-shadow: var(--glow-blue); transform: scale(1.04); }
+
+  .hero-stats {
+    display: flex; gap: 50px; margin-top: 70px; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 1s 0.9s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+  /* ── PROBLEM / SOLUTION ── */
+  #problem {
+    padding: 120px 5%;
+    background: linear-gradient(180deg, transparent, rgba(22,10,53,0.8), transparent);
+  }
+  .section-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--neon-blue); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700; line-height: 1.2;
+    margin-bottom: 60px;
+  }
+  .section-title span {
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .ps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .problem-list { display: flex; flex-direction: column; gap: 20px; }
+  .problem-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 20px 24px;
+    background: rgba(255,30,80,0.05);
+    border: 1px solid rgba(255,30,80,0.2);
+    border-radius: 16px;
+  }
+  .problem-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .problem-item h4 { color: #ff4060; font-size: 0.95rem; margin-bottom: 4px; }
+  .problem-item p { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+  .solution-visual {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 40px;
+    backdrop-filter: blur(20px);
+    position: relative; overflow: hidden;
+  }
+  .solution-visual::before {
+    content: '';
+    position: absolute; top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .solution-list { display: flex; flex-direction: column; gap: 18px; }
+  .sol-item { display: flex; align-items: center; gap: 14px; }
+  .sol-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    box-shadow: 0 0 12px var(--neon-blue);
+  }
+  .sol-item span { font-size: 0.95rem; color: rgba(255,255,255,0.8); }
+  .solution-tagline {
+    margin-top: 30px; padding-top: 30px; border-top: 1px solid var(--glass-border);
+    font-family: 'Orbitron', monospace; font-size: 1.1rem;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  /* ── FEATURES ── */
+  #features { padding: 120px 5%; }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; margin-top: 20px;
+  }
+  .feature-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px; padding: 36px 30px;
+    backdrop-filter: blur(20px);
+    transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
+    cursor: default; position: relative; overflow: hidden;
+  }
+  .feature-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(191,0,255,0.05));
+    opacity: 0; transition: opacity 0.4s;
+    border-radius: inherit;
+  }
+  .feature-card:hover { transform: translateY(-10px) scale(1.02); border-color: rgba(0,212,255,0.4); box-shadow: 0 20px 60px rgba(0,212,255,0.15), 0 0 40px rgba(191,0,255,0.1); }
+  .feature-card:hover::after { opacity: 1; }
+  .feature-icon {
+    font-size: 2.4rem; margin-bottom: 20px;
+    display: inline-block;
+    filter: drop-shadow(0 0 12px var(--neon-blue));
+  }
+  .feature-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.95rem; font-weight: 700;
+    color: #fff; margin-bottom: 12px; letter-spacing: 1px;
+  }
+  .feature-desc { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+  .feature-tag {
+    display: inline-block; margin-top: 18px;
+    font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--neon-blue); background: rgba(0,212,255,0.1);
+    padding: 4px 12px; border-radius: 50px;
+    border: 1px solid rgba(0,212,255,0.2);
+  }
+
+  /* ── USE CASES ── */
+  #usecases { padding: 120px 5%; background: linear-gradient(180deg, transparent, rgba(22,10,53,0.6), transparent); }
+  .usecases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .usecase-card {
+    background: var(--card-bg); border: 1px solid var(--glass-border);
+    border-radius: 24px; padding: 40px 30px; text-align: center;
+    backdrop-filter: blur(20px); position: relative; overflow: hidden;
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
+  .usecase-card:hover { transform: translateY(-8px); }
+  .usecase-card:nth-child(1):hover { box-shadow: 0 20px 60px rgba(0,212,255,0.2); }
+  .usecase-card:nth-child(2):hover { box-shadow: 0 20px 60px rgba(191,0,255,0.2); }
+  .usecase-card:nth-child(3):hover { box-shadow: 0 20px 60px rgba(255,0,200,0.2); }
+  .usecase-card:nth-child(4):hover { box-shadow: 0 20px 60px rgba(0,255,180,0.2); }
+  .usecase-number {
+    font-family: 'Orbitron', monospace; font-size: 3rem; font-weight: 900;
+    opacity: 0.06; position: absolute; top: 16px; right: 20px; line-height: 1;
+  }
+  .usecase-emoji { font-size: 3rem; margin-bottom: 20px; display: block; }
+  .usecase-title {
+    font-family: 'Orbitron', monospace; font-size: 0.9rem; font-weight: 700;
+    color: #fff; margin-bottom: 14px; letter-spacing: 1px;
+  }
+  .usecase-desc { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+  /* ── OFFER ── */
+  #offer { padding: 100px 5%; text-align: center; }
+  .offer-card {
+    max-width: 800px; margin: 0 auto;
+    background: rgba(191,0,255,0.05);
+    border-radius: 36px; padding: 70px 50px;
+    position: relative; overflow: hidden;
+    animation: pulseBorder 3s ease-in-out infinite;
+  }
+  @keyframes pulseBorder {
+    0%, 100% { border: 1px solid rgba(191,0,255,0.3); box-shadow: 0 0 30px rgba(191,0,255,0.15); }
+    50% { border: 1px solid rgba(0,212,255,0.6); box-shadow: 0 0 60px rgba(0,212,255,0.25); }
+  }
+  .offer-badge {
+    display: inline-block; background: linear-gradient(135deg, #ff4060, var(--neon-purple));
+    color: #fff; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px;
+    text-transform: uppercase; padding: 8px 22px; border-radius: 50px;
+    margin-bottom: 24px;
+  }
+  .offer-title {
+    font-family: 'Orbitron', monospace; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900;
+    margin-bottom: 12px;
+  }
+  .offer-price {
+    margin: 30px 0;
+    display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;
+  }
+  .price-old { font-size: 1.8rem; color: rgba(255,255,255,0.3); text-decoration: line-through; }
+  .price-new {
+    font-family: 'Orbitron', monospace; font-size: 4rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .price-label { font-size: 0.75rem; letter-spacing: 2px; color: rgba(255,255,255,0.4); }
+  .countdown { display: flex; gap: 16px; justify-content: center; margin: 36px 0; flex-wrap: wrap; }
+  .cd-block {
+    background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 18px 22px; text-align: center; min-width: 80px;
+  }
+  .cd-num {
+    font-family: 'Orbitron', monospace; font-size: 2.2rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .cd-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 6px; }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials { padding: 120px 5%; }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .testi-card {
+    background: var(--card-bg); border: 1px solid var(--glass-border);
+    border-radius: 24px; padding: 40px 34px;
+    backdrop-filter: blur(20px); position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .testi-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,212,255,0.1); }
+  .testi-quote { font-size: 3rem; color: var(--neon-purple); line-height: 0.8; margin-bottom: 18px; }
+  .testi-text { font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.8; font-style: italic; margin-bottom: 30px; }
+  .testi-author { display: flex; align-items: center; gap: 14px; }
+  .testi-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', monospace; font-size: 1rem; font-weight: 700;
+    color: #fff; flex-shrink: 0;
+  }
+  .testi-name { font-weight: 700; font-size: 0.9rem; }
+  .testi-role { font-size: 0.75rem; color: var(--neon-blue); letter-spacing: 1px; }
+  .stars { color: #ffcc00; font-size: 0.9rem; margin-bottom: 4px; }
+
+  /* ── ABOUT TECH ── */
+  #tech { padding: 120px 5%; background: linear-gradient(180deg, transparent, rgba(22,10,53,0.8), transparent); }
+  .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+  .tech-item {
+    padding: 36px 28px; border-radius: 20px;
+    background: var(--card-bg); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    transition: transform 0.3s;
+  }
+  .tech-item:hover { transform: translateY(-6px); }
+  .tech-icon { font-size: 2rem; margin-bottom: 16px; }
+  .tech-item h4 {
+    font-family: 'Orbitron', monospace; font-size: 0.85rem;
+    font-weight: 700; margin-bottom: 10px; color: var(--neon-blue);
+  }
+  .tech-item p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+  /* ── CONTACT ── */
+  #contact { padding: 120px 5%; text-align: center; }
+  .contact-form {
+    max-width: 600px; margin: 0 auto;
+    background: var(--card-bg); border: 1px solid var(--glass-border);
+    border-radius: 28px; padding: 50px 44px;
+    backdrop-filter: blur(30px);
+  }
+  .form-row { margin-bottom: 18px; text-align: left; }
+  .form-row label {
+    display: block; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); margin-bottom: 8px;
+  }
+  .form-row input {
+    width: 100%; background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border); border-radius: 12px;
+    color: #fff; padding: 14px 18px; font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem; outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .form-row input:focus { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0,212,255,0.15); }
+  .form-row input::placeholder { color: rgba(255,255,255,0.25); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 40px 5%;
+    border-top: 1px solid var(--glass-border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo {
+    font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.1rem;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+  /* ── VIDEO MODAL ── */
+  #video-modal {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(0,0,0,0.92); backdrop-filter: blur(20px);
+    justify-content: center; align-items: center;
+    animation: fadeIn 0.4s ease;
+  }
+  #video-modal.active { display: flex; }
+  .modal-inner {
+    position: relative; width: 90%; max-width: 960px;
+    border-radius: 20px; overflow: hidden;
+    box-shadow: 0 0 80px rgba(0,212,255,0.3);
+    animation: zoomIn 0.4s ease;
+  }
+  .modal-inner video { width: 100%; display: block; }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px; z-index: 10;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #fff; width: 40px; height: 40px; border-radius: 50%;
+    font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px); transition: background 0.2s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.25); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+  @keyframes rotateBorder { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+  @keyframes fadeDown { from { opacity:0; transform: translateY(-24px); } to { opacity:1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  @keyframes zoomIn { from { opacity:0; transform: scale(0.88); } to { opacity:1; transform: scale(1); } }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .ps-grid { grid-template-columns: 1fr; gap: 40px; }
+    .glasses-wrapper { width: 280px; height: 165px; }
+    .neon-ring { width: 310px; height: 195px; }
+    .neon-ring-2 { width: 340px; height: 215px; }
+    .contact-form { padding: 36px 24px; }
+    .offer-card { padding: 50px 24px; }
+    .hero-stats { gap: 30px; }
+  }
+  @media (max-width: 480px) {
+    .hero-title { font-size: 2rem; }
+    .section-title { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">VISION AI</div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#usecases">Use Cases</a></li>
+    <li><a href="#offer">Offer</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Pre-Order</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-badge">✦ Next-Gen AI Wearable Technology</div>
+  <h1 class="hero-title">See the Future<br>with VISION AI</h1>
+  <p class="hero-sub">Transforming vision for all users with cutting-edge artificial intelligence.</p>
+  <p class="hero-tagline">Empowering Vision Through Intelligence</p>
+
+  <div class="glasses-wrapper">
+    <div class="neon-ring"></div>
+    <div class="neon-ring-2"></div>
+    <svg class="glasses-svg" viewBox="0 0 380 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Frame Bridge -->
+      <path d="M162 110 Q190 98 218 110" stroke="url(#bridgeGrad)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <!-- Left Lens Frame -->
+      <rect x="20" y="72" width="138" height="82" rx="34" fill="url(#lensGradLeft)" stroke="url(#frameGrad)" stroke-width="3"/>
+      <!-- Right Lens Frame -->
+      <rect x="222" y="72" width="138" height="82" rx="34" fill="url(#lensGradRight)" stroke="url(#frameGrad)" stroke-width="3"/>
+      <!-- Left Temple -->
+      <path d="M20 112 L-8 116 Q-22 118 -28 130" stroke="url(#frameGrad)" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <!-- Right Temple -->
+      <path d="M360 112 L388 116 Q402 118 408 130" stroke="url(#frameGrad)" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <!-- Left Lens HUD grid -->
+      <line x1="40" y1="90" x2="140" y2="90" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
+      <line x1="40" y1="105" x2="140" y2="105" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
+      <line x1="40" y1="120" x2="140" y2="120" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
+      <line x1="40" y1="135" x2="140" y2="135" stroke="rgba(0,212,255,0.2)" stroke-width="1"/>
+      <line x1="60" y1="75" x2="60" y2="150" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
+      <line x1="90" y1="75" x2="90" y2="150" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
+      <line x1="120" y1="75" x2="120" y2="150" stroke="rgba(0,212,255,0.15)" stroke-width="1"/>
+      <!-- Right Lens HUD grid -->
+      <line x1="240" y1="90" x2="340" y2="90" stroke="rgba(191,0,255,0.2)" stroke-width="1"/>
+      <line x1="240" y1="105" x2="340" y2="105" stroke="rgba(191,0,255,0.2)" stroke-width="1"/>
+      <line x1="240" y1="120" x2="340" y2="120" stroke="rgba(191,0,255,0.2)" stroke-width="1"/>
+      <line x1="240" y1="135" x2="340" y2="135" stroke="rgba(191,0,255,0.2)" stroke-width="1"/>
+      <line x1="260" y1="75" x2="260" y2="150" stroke="rgba(191,0,255,0.15)" stroke-width="1"/>
+      <line x1="290" y1="75" x2="290" y2="150" stroke="rgba(191,0,255,0.15)" stroke-width="1"/>
+      <line x1="320" y1="75" x2="320" y2="150" stroke="rgba(191,0,255,0.15)" stroke-width="1"/>
+      <!-- Left HUD Target -->
+      <circle cx="89" cy="111" r="22" stroke="rgba(0,212,255,0.4)" stroke-width="1.5" fill="none"/>
+      <circle cx="89" cy="111" r="10" stroke="rgba(0,212,255,0.6)" stroke-width="1" fill="none"/>
+      <line x1="89" y1="90" x2="89" y2="98" stroke="rgba(0,212,255,0.6)" stroke-width="1"/>
+      <line x1="89" y1="124" x2="89" y2="132" stroke="rgba(0,212,255,0.6)" stroke-width="1"/>
+      <line x1="68" y1="111" x2="76" y2="111" stroke="rgba(0,212,255,0.6)" stroke-width="1"/>
+      <line x1="102" y1="111" x2="110" y2="111" stroke="rgba(0,212,255,0.6)" stroke-width="1"/>
+      <!-- Right AI text -->
+      <text x="248" y="100" fill="rgba(191,0,255,0.7)" font-size="8" font-family="monospace">OBJECT:DETECTED</text>
+      <text x="248" y="120" fill="rgba(0,212,255,0.7)" font-size="7" font-family="monospace">CONFIDENCE: 98.2%</text>
+      <text x="248" y="138" fill="rgba(255,200,0,0.6)" font-size="7" font-family="monospace">TRANSLATE: ACTIVE</text>
+      <!-- Nose Pads -->
+      <ellipse cx="172" cy="118" rx="5" ry="7" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <ellipse cx="208" cy="118" rx="5" ry="7" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <!-- Gradients -->
+      <defs>
+        <linearGradient id="lensGradLeft" x1="20" y1="72" x2="158" y2="154" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#001428" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#000820" stop-opacity="0.8"/>
+        </linearGradient>
+        <linearGradient id="lensGradRight" x1="222" y1="72" x2="360" y2="154" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#140028" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#080014" stop-opacity="0.8"/>
+        </linearGradient>
+        <linearGradient id="frameGrad" x1="0" y1="0" x2="380" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#00d4ff"/>
+          <stop offset="50%" stop-color="#bf00ff"/>
+          <stop offset="100%" stop-color="#00d4ff"/>
+        </linearGradient>
+        <linearGradient id="bridgeGrad" x1="162" y1="0" x2="218" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#00d4ff"/>
+          <stop offset="100%" stop-color="#bf00ff"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="hero-ctas">
+    <button class="btn-primary" onclick="document.getElementById('offer').scrollIntoView({behavior:'smooth'})">🔥 Pre-Book Now (50% Off)</button>
+    <button class="btn-outline" id="watch-demo-btn">🎬 Watch Demo</button>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">98.7%</div><div class="stat-label">AI Accuracy</div></div>
+    <div class="stat"><div class="stat-num">&lt;50ms</div><div class="stat-label">Response Time</div></div>
+    <div class="stat"><div class="stat-num">47+</div><div class="stat-label">Languages</div></div>
+    <div class="stat"><div class="stat-num">18h</div><div class="stat-label">Battery Life</div></div>
+  </div>
+</section>
+
+<!-- PROBLEM & SOLUTION -->
+<section id="problem">
+  <div class="reveal" style="margin-bottom:16px">
+    <div class="section-label">The Challenge</div>
+    <h2 class="section-title">Why Traditional Vision<br>Tools <span>Fall Short</span></h2>
+  </div>
+  <div class="ps-grid">
+    <div class="problem-list reveal">
+      <div class="problem-item">
+        <div class="problem-icon">🚫</div>
+        <div><h4>No AI Assistance</h4><p>Conventional glasses offer zero intelligence — no scene understanding, no contextual awareness.</p></div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">⚠️</div>
+        <div><h4>No Real-Time Alerts</h4><p>Hazards go undetected. There's no system to warn users of obstacles, vehicles, or dangerous environments.</p></div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">🌐</div>
+        <div><h4>No Translation</h4><p>Language barriers remain uncrossable. Signs, text, and speech in foreign languages are inaccessible.</p></div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-icon">🗺️</div>
+        <div><h4>No Smart Navigation</h4><p>Navigating unfamiliar spaces is daunting without real-time, voice-guided intelligent route planning.</p></div>
+      </div>
+    </div>
+    <div class="solution-visual reveal">
+      <div class="section-label">The VISION AI Solution</div>
+      <h3 style="font-family:'Orbitron',monospace; font-size:1.4rem; margin-bottom:28px; color:#fff;">Intelligence Woven<br>Into Every Frame</h3>
+      <div class="solution-list">
+        <div class="sol-item"><div class="sol-dot"></div><span>Real-time AI object & hazard detection at 60fps</span></div>
+        <div class="sol-item"><div class="sol-dot"></div><span>Instant voice alerts for danger and navigation</span></div>
+        <div class="sol-item"><div class="sol-dot"></div><span>Live translation of 47+ languages via HUD</span></div>
+        <div class="sol-item"><div class="sol-dot"></div><span>AI-powered facial recognition & identity assist</span></div>
+        <div class="sol-item"><div class="sol-dot"></div><span>Intelligent route planning with spatial awareness</span></div>
+        <div class="sol-item"><div class="sol-dot"></div><span>Edge-processed AI — fully private, no cloud</span></div>
+      </div>
+      <p class="solution-tagline">Enhancing Independence.<br>Elevating Intelligence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="reveal" style="text-align:center; margin-bottom:16px">
+    <div class="section-label" style="display:inline-block">Core Technology</div>
+    <h2 class="section-title">Capabilities That<br><span>Redefine Perception</span></h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">🎯</div>
+      <div class="feature-title">Real-Time Object Detection</div>
+      <p class="feature-desc">Advanced computer vision identifies objects, people, vehicles, and obstacles with 98.7% accuracy in under 50ms — alerting you before you even realize the need.</p>
+      <span class="feature-tag">COMPUTER VISION</span>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🎤</div>
+      <div class="feature-title">Voice AI Assistant</div>
+      <p class="feature-desc">Context-aware conversational AI processes natural language commands, reads your environment, and delivers actionable audio guidance hands-free.</p>
+      <span class="feature-tag">NLP ENGINE</span>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🧭</div>
+      <div class="feature-title">Navigation Support</div>
+      <p class="feature-desc">Spatial mapping combined with GPS creates hyper-accurate turn-by-turn voice navigation overlaid with real-world AR waypoints for any terrain.</p>
+      <span class="feature-tag">SPATIAL AI</span>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🌍</div>
+      <div class="feature-title">Live Language Translation</div>
+      <p class="feature-desc">Optical character recognition fused with NLP translates signs, menus, and documents in 47+ languages instantly, displayed in your HUD lens.</p>
+      <span class="feature-tag">NEURAL TRANSLATION</span>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">👤</div>
+      <div class="feature-title">Face Recognition</div>
+      <p class="feature-desc">Secure, privacy-first biometric recognition identifies approved contacts and personnel, providing silent name and role overlays for enhanced social confidence.</p>
+      <span class="feature-tag">BIOMETRIC AI</span>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="usecases">
+  <div class="reveal" style="text-align:center; margin-bottom:16px">
+    <div class="section-label" style="display:inline-block">Applications</div>
+    <h2 class="section-title">Built for the World<br><span>You Live In</span></h2>
+  </div>
+  <div class="usecases-grid">
+    <div class="usecase-card reveal">
+      <span class="usecase-number">01</span>
+      <span class="usecase-emoji">👁️</span>
+      <div class="usecase-title">Visually Impaired Users</div>
+      <p class="usecase-desc">VISION AI becomes a continuous intelligent companion — narrating the environment, identifying faces, reading text aloud, and ensuring safe independent navigation.</p>
+    </div>
+    <div class="usecase-card reveal">
+      <span class="usecase-number">02</span>
+      <span class="usecase-emoji">🏍️</span>
+      <div class="usecase-title">Smart Riding Assistance</div>
+      <p class="usecase-desc">Real-time HUD navigation, vehicle detection, and hazard warnings allow motorcyclists and cyclists to focus on the road while AI manages situational awareness.</p>
+    </div>
+    <div class="usecase-card reveal">
+      <span class="usecase-number">03</span>
+      <span class="usecase-emoji">✈️</span>
+      <div class="usecase-title">Global Travel Translation</div>
+      <p class="usecase-desc">Instantly translate foreign signage, menus, and conversations while traveling. Break every language barrier with AI-powered real-time interpretation overlaid in your vision.</p>
+    </div>
+    <div class="usecase-card reveal">
+      <span class="usecase-number">04</span>
+      <span class="usecase-emoji">🔐</span>
+      <div class="usecase-title">Security & Law Enforcement</div>
+      <p class="usecase-desc">Biometric face recognition overlays identity data discreetly, enabling rapid, accurate identification for security professionals in real-world operational environments.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section id="offer">
+  <div class="offer-card reveal">
+    <div class="offer-badge">🔥 Limited Time — Founding Member Offer</div>
+    <h2 class="offer-title">Exclusive<br><span style="background:linear-gradient(135deg,#ff4060,var(--neon-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Pre-Booking</span> Deal</h2>
+    <p style="color:rgba(255,255,255,0.55); margin-top:12px; font-size:0.95rem;">Be among the first 500 to own the future of intelligent vision.</p>
+    <div class="offer-price">
+      <div>
+        <div class="price-label">Regular Price</div>
+        <div class="price-old">₹49,999</div>
+      </div>
+      <div>
+        <div class="price-label">Your Price</div>
+        <div class="price-new">₹24,999</div>
+      </div>
+      <div style="background:linear-gradient(135deg,#ff4060,var(--neon-purple));border-radius:50%;width:80px;height:80px;display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:'Orbitron',monospace;">
+        <span style="font-size:1.4rem;font-weight:900;">50%</span>
+        <span style="font-size:0.55rem;letter-spacing:1px;">OFF</span>
+      </div>
+    </div>
+
+    <p style="color:rgba(255,255,255,0.4); font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px;">Offer Expires In</p>
+    <div class="countdown">
+      <div class="cd-block"><div class="cd-num" id="cd-days">--</div><div class="cd-label">Days</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-hours">--</div><div class="cd-label">Hours</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Mins</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Secs</div></div>
+    </div>
+
+    <button class="btn-primary" style="font-size:1rem; padding:18px 50px; margin-top:10px;" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+      Claim 50% Off — Pre-Order Now →
+    </button>
+    <p style="color:rgba(255,255,255,0.3); font-size:0.75rem; margin-top:16px;">✓ Free shipping &nbsp;·&nbsp; ✓ 1-year warranty &nbsp;·&nbsp; ✓ 30-day returns</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="reveal" style="text-align:center; margin-bottom:16px">
+    <div class="section-label" style="display:inline-block">Social Proof</div>
+    <h2 class="section-title">Visionaries Who<br><span>Believe in VISION AI</span></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">VISION AI represents the most significant leap in assistive and intelligent wearable technology I've witnessed in a decade. The AI processing at the edge, combined with real-time inference, positions this product miles ahead of anything currently in market.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">DK</div>
+        <div>
+          <div class="stars">★★★★★</div>
+          <div class="testi-name">Dr. Dario Kessler</div>
+          <div class="testi-role">Tech Innovation Expert · MIT AI Lab</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">As someone who has spent 15 years advocating for inclusive technology, VISION AI is genuinely transformative. The independence it restores to visually impaired individuals isn't incremental — it's generational. This is the product the accessibility world has been waiting for.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,var(--neon-pink),var(--neon-purple))">SR</div>
+        <div>
+          <div class="stars">★★★★★</div>
+          <div class="testi-name">Sophia Ramirez</div>
+          <div class="testi-role">Accessibility Advocate · WHO Advisory Board</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The smart mobility applications alone justify investment. VISION AI's integration of spatial AI with biometric recognition and live translation creates unprecedented utility for transportation, logistics, and security sectors. The TAM is enormous and the timing is perfect.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#00ff88,var(--neon-blue))">AV</div>
+        <div>
+          <div class="stars">★★★★★</div>
+          <div class="testi-name">Arjun Venkatesh</div>
+          <div class="testi-role">Smart Mobility Consultant · Sequoia Capital</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT TECH -->
+<section id="tech">
+  <div class="reveal" style="text-align:center; margin-bottom:16px">
+    <div class="section-label" style="display:inline-block">Under the Lens</div>
+    <h2 class="section-title">Technology That<br><span>Thinks as Fast as You</span></h2>
+  </div>
+  <div class="tech-grid">
+    <div class="tech-item reveal">
+      <div class="tech-icon">🧠</div>
+      <h4>AI-Powered Vision Engine</h4>
+      <p>Custom-trained neural network with 2.4 billion parameters runs entirely on-device, delivering desktop-class AI inference in a 28g frame.</p>
+    </div>
+    <div class="tech-item reveal">
+      <div class="tech-icon">⚡</div>
+      <h4>Real-Time Edge Processing</h4>
+      <p>Proprietary NPU chip processes 4K visual streams at 60fps with sub-50ms latency — zero cloud dependency, zero lag, zero compromise.</p>
+    </div>
+    <div class="tech-item reveal">
+      <div class="tech-icon">🔒</div>
+      <h4>Secure Data Encryption</h4>
+      <p>Military-grade AES-256 encryption with on-device biometric key generation ensures all data remains private, local, and fully yours.</p>
+    </div>
+    <div class="tech-item reveal">
+      <div class="tech-icon">🪶</div>
+      <h4>Lightweight Smart Design</h4>
+      <p>Aircraft-grade titanium frame weighing just 28g with 18-hour battery life, wireless charging, and IP68 water resistance for all-day wear.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal" style="margin-bottom:48px; text-align:center">
+    <div class="section-label" style="display:inline-block">Reserve Yours</div>
+    <h2 class="section-title">Join the<br><span>Vision Revolution</span></h2>
+    <p style="color:rgba(255,255,255,0.5); max-width:480px; margin:0 auto; font-size:0.95rem;">Secure your VISION AI today and be part of the most important wearable technology launch of the decade.</p>
+  </div>
+  <div class="contact-form reveal">
+    <div class="form-row">
+      <label>Full Name</label>
+      <input type="text" placeholder="Your name">
+    </div>
+    <div class="form-row">
+      <label>Email Address</label>
+      <input type="email" placeholder="your@email.com">
+    </div>
+    <div class="form-row">
+      <label>Phone Number</label>
+      <input type="tel" placeholder="+91 00000 00000">
+    </div>
+    <button class="btn-primary" style="width:100%; font-size:1rem; padding:18px; margin-top:8px;">
+      🔥 Pre-Order Now — 50% Off Secured
+    </button>
+    <p style="color:rgba(255,255,255,0.3); font-size:0.75rem; text-align:center; margin-top:16px;">
+      By pre-ordering, you agree to our terms. Fully refundable until shipment.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">VISION AI</div>
+  <div class="footer-copy">© 2025 VISION AI Technologies. All rights reserved. Empowering Vision Through Intelligence.</div>
+</footer>
+
+<!-- VIDEO MODAL -->
+<div id="video-modal">
+  <div class="modal-inner">
+    <button class="modal-close" id="modal-close-btn">✕</button>
+    <video id="demo-video" controls playsinline>
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+
+<script>
+// ── Canvas Background ──
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, nodes = [], particles = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+function initNodes() {
+  nodes = [];
+  const count = Math.floor((W * H) / 18000);
+  for (let i = 0; i < count; i++) {
+    nodes.push({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 2.5 + 1,
+      color: Math.random() > 0.5 ? '#00d4ff' : '#bf00ff',
+      pulse: Math.random() * Math.PI * 2
+    });
+  }
+}
+
+function drawBackground() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Draw connections
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 140) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(0,212,255,${0.15 * (1 - dist/140)})`;
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Draw nodes
+  nodes.forEach(n => {
+    n.pulse += 0.02;
+    const alpha = 0.5 + 0.5 * Math.sin(n.pulse);
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = n.color.replace(')', `,${alpha})`).replace('rgb', 'rgba').replace('#00d4ff', 'rgba(0,212,255,').replace('#bf00ff', 'rgba(191,0,255,');
+    ctx.fill();
+    n.x += n.vx; n.y += n.vy;
+    if (n.x < 0 || n.x > W) n.vx *= -1;
+    if (n.y < 0 || n.y > H) n.vy *= -1;
+  });
+
+  // Holographic waves
+  const t = Date.now() / 2000;
+  for (let k = 0; k < 3; k++) {
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(0,212,255,${0.04 + k * 0.02})`;
+    ctx.lineWidth = 1;
+    for (let x = 0; x < W; x += 4) {
+      const y = H * 0.5 + Math.sin(x / 120 + t + k * 2) * 40 + Math.sin(x / 60 + t * 1.5) * 20;
+      k === 0 && x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  requestAnimationFrame(drawBackground);
+}
+
+resize(); initNodes();
+window.addEventListener('resize', () => { resize(); initNodes(); });
+drawBackground();
+
+// Fix node color rendering
+nodes.forEach(n => {
+  n.colorR = n.color === '#00d4ff' ? [0,212,255] : [191,0,255];
+});
+
+// ── Scroll Reveal ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Countdown ──
+const deadline = new Date(Date.now() + (7 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000) + (37 * 60 * 1000));
+function updateCountdown() {
+  const diff = deadline - Date.now();
+  if (diff <= 0) return;
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+}
+updateCountdown(); setInterval(updateCountdown, 1000);
+
+// ── Video Modal ──
+const modal = document.getElementById('video-modal');
+const video = document.getElementById('demo-video');
+const closeBtn = document.getElementById('modal-close-btn');
+const watchBtn = document.getElementById('watch-demo-btn');
+
+watchBtn.addEventListener('click', () => {
+  modal.classList.add('active');
+  video.play().catch(() => {});
+  document.body.style.overflow = 'hidden';
+});
+
+function closeModal() {
+  modal.classList.remove('active');
+  video.pause();
+  video.currentTime = 0;
+  document.body.style.overflow = '';
+}
+
+closeBtn.addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
